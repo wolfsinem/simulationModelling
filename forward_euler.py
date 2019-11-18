@@ -1,15 +1,3 @@
-# Implementeer Euler integratie in de FixedUpdate() methode en simuleer een valbeweging.
-
-# Een denkbeeldige veer is bevestigd aan de oorsprong (0,0,0) en trekt de bal voortdurend terug. Denk na
-# over de formule voor de kracht van een veer en simuleer een veerbeweging.
-
-# Bouw wrijving in zodat de veerbeweging gedempt wordt.
-
-# Gebruik Euler integratie om een planeet- of komeetbeweging te simuleren.
-
-# Maak in python plots van de val- en veerbeweging (met en zonder wrijving)
-# -------------------------------------------------------------------------------------------------------
-
 import numpy as np 
 import matplotlib.pyplot
 
