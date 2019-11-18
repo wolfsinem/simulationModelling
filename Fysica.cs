@@ -12,7 +12,6 @@ public class Fysica : MonoBehaviour
     public int stretch;
     public int gravity; 
     
-    // Start is called before the first frame update
     void Start()
     {
         Force = new Vector3(0,-1,0);
