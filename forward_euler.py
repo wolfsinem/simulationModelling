@@ -15,8 +15,7 @@ def forward_euler():
     for step in range(num_steps):
         t[step+1] = t[step] + h # tijd berekenen
         x[step+1] = x[step] + h * v[step] # hoogte berekenen x(h) + h * v(h)
-        v[step+1] = v[step]  + g * h # velocity v(h) + h(F/m)
-        
+        v[step+1] = v[step] - g * h # velocity v(h) + h(F/m)
     return t,x,v
  
 t,x,v = forward_euler()
