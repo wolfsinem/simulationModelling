@@ -5,7 +5,7 @@ def forward_euler():
     h=0.01 # small time steps of size    s
     g=9.81 # valversnelling  constant    m/s2
     friction = 0.1 # wrijving 
-    num_steps = 100
+    num_steps = 50
 
     t = np.zeros(num_steps+1) # tijd x-as
     x = np.zeros(num_steps+1) # hoogte y-as
@@ -14,8 +14,8 @@ def forward_euler():
     # implementeer de Euler-integratie en simuleer een valbeweging
     for step in range(num_steps):
         t[step+1] = t[step] + h # tijd berekenen
-        x[step+1] = x[step] + h * v[step] # hoogte berekenen
-        v[step+1] = - g * h + v[step] # velocity 
+        x[step+1] = x[step] + h * v[step] # hoogte berekenen x(h) + h * v(h)
+        v[step+1] = v[step]  + g * h # velocity v(h) + h(F/m)
         
     return t,x,v
  
