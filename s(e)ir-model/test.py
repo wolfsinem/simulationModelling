@@ -1,15 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 
 stnr = 1748884
 def sir_model(stnr):
-    populatie = int(str(stnr)[-2:])
+    populatie = int(str(stnr)[-2:]) * 1000000
     contacten = int(str(stnr)[3:-2]) 
     kans_infectie = float(str(stnr)[2])/100
     return populatie,contacten,kans_infectie
 
 populatie, contacten,kans_infectie = sir_model(stnr)
-print("De grootte van de populatie wordt {} miljoen, het gemiddelde aantal contacten per dag {} en de kans op infectie {}".format(populatie,contacten,kans_infectie))
+print("De grootte van de populatie wordt {}, het gemiddelde aantal contacten per dag {} en de kans op infectie {}".format(populatie,contacten,kans_infectie))
 
 h = 0.5 #days
 trans_coeff = (kans_infectie * contacten) / populatie #day person
@@ -25,7 +27,7 @@ def seir_model(latency_time):
     i = np.zeros(num_steps + 1)
     r = np.zeros(num_steps + 1)
     
-    s[0] = populatie - 1e6 - 1e5 
+    s[0] = 1e8 - 1e6 - 1e5 
     e[0] = 0
     i[0] = 1e5
     r[0] = 1e6
@@ -43,20 +45,25 @@ def seir_model(latency_time):
     return s,e,i,r 
 
 def plot_me():
-    plt.subplot(211)
+    ax1 = plt.subplot(211)
+    ax1.set_title('Latency time of 1 day')
     plt.plot(times, e, label='S')
     plt.plot(times, e, label='E')
     plt.plot(times, i, label='I')
     plt.plot(times, r, label='R')
     plt.legend(loc="upper left")
-
-    plt.subplot(212)
+    ax1.set(xlabel="Time in days",ylabel="Infected people")
+    
+    ax2 = plt.subplot(212)
+    ax2.set_title('Latency time of 2 days')
     plt.plot(times, s_2, label='S')
     plt.plot(times, e_2, label='E')
     plt.plot(times, i_2, label='I')
     plt.plot(times, r_2, label='R')
     plt.legend(loc="upper left")
+    ax2.set(xlabel="Time in days",ylabel="Infected people")
 
+    plt.tight_layout()
     plt.show()
 
 s,e,i,r = seir_model(1)
