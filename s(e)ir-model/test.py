@@ -15,11 +15,15 @@ print("De grootte van de populatie wordt {}, het gemiddelde aantal contacten per
 
 h = 0.5 #days
 trans_coeff = (kans_infectie * contacten) / populatie #day person
-infectie_tijd = 5 #days 
+infectie_tijd = 5. #days 
 
 end_time = 60 #days
 num_steps = int(end_time / h)
 times = h * np.array(range(num_steps + 1))
+
+vaccinatie = int(populatie - ((1/infectie_tijd) / trans_coeff))
+percentage_vaccinatie = int(100. / populatie * vaccinatie)
+print("Er moeten {} mensen gevaccineerd worden om een epidemie te voorkomen, dit is {}% van de gehele populatie.".format(vaccinatie,percentage_vaccinatie))
 
 def seir_model(latency_time):  
     s = np.zeros(num_steps + 1)
