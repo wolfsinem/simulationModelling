@@ -4,15 +4,16 @@ import matplotlib.pyplot as plt
 harvest_rates = [2e4, 5e4, 1e5, 2e5]
 data = []
 
+maximum_harvest_rate = 0.7 * 2.5e5
 maximum_growth_rate = 0.5
 carrying_capacity = 2e6 
 
-maximum_harvest_rate = 0.7 * 2.5e5
 ramp_start = 2.
 ramp_end = 6. 
 
 end_time = 10.
 h = 0.1
+
 num_steps = int(end_time / h)
 times = h * np.array(range(num_steps + 1))
 
@@ -71,3 +72,4 @@ plt.plot(times,fish)
 axes = plt.gca()
 axes.set_xlabel('Time in years')
 axes.set_ylabel('Amount of fish in tons')
+plt.show()
