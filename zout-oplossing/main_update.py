@@ -5,9 +5,9 @@ def zout_oplossing(num_steps,uitstroom):
     instroom = 6
     zout_in = 0.1 
 
-    t = np.zeros(1000 + 1) 
-    z = np.zeros(1000 + 1) 
-    c = np.zeros(1000 + 1)  
+    t = np.zeros(num_steps + 1) 
+    z = np.zeros(num_steps + 1) 
+    c = np.zeros(num_steps + 1)  
 
     t[0] = 1000
     z[0] = 0
@@ -27,7 +27,7 @@ times, conc_tank_1 = zout_oplossing(1000,6)
 times, conc_tank_2 = zout_oplossing(1000,5)
 
 plt.plot(times,conc_tank_1,'r',label='uitstroom=6')
-plt.plot(times,conc_tank_2,'r',label='uitstroom=5')
+plt.plot(times,conc_tank_2,'b',label='uitstroom=5')
 plt.title('Zoutoplossing in een tank')
 plt.legend()
 plt.show()
