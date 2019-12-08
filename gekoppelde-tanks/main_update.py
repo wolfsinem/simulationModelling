@@ -47,7 +47,7 @@ def zout_oplossing(num_steps):
 
 times, conc_tank_1, conc_tank_2 = zout_oplossing(200)
 
-plt.plot(times,conc_tank_1,'r',label='tank 1')
+plt.plot(times,conc_tank_1,'b',label='tank 1')
 plt.plot(times,conc_tank_2,'g',label='tank 2')
 plt.title('Zoutoplossing in een tank')
 plt.legend()
