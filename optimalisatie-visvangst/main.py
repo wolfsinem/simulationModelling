@@ -32,7 +32,7 @@ def logistic_growth():
     return fish
 
 def harvest():
-    data_result = []
+    data = []
     maximum_harvest_rate = 0.7 * 2.5e5
     ramp_start = 2.
     ramp_end = 6. 
@@ -57,7 +57,7 @@ def harvest():
             if fish[step+1] <= 0.:
                 is_extinct = True
                 fish[step+1] = 0.
-        # data_result.append()
+        # data.append()
 
     return fish
 
