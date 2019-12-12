@@ -28,26 +28,9 @@ def std():
 
 x,y = std()
 
-    
-
-
 def plot_me(xas,yas):
     plt.plot(xas,yas)
     plt.xlabel('seed')
     plt.ylabel('variantie')
     plt.show()
 plot_me(x,y)
-
-
-
-
-
-
-
-"""
-pseude_numer_generator(None)  output: 0 
-pseude_numer_generator(0)     output: 3 
-pseude_numer_generator(3)     output: 4
-pseude_numer_generator(4)     output: 1 
-pseude_numer_generator(1)     output: 0
-"""
