@@ -1,10 +1,11 @@
 import numpy as np 
 import math
+import statistics
+import matplotlib.pyplot as plt
 
-#Linear Congenital Generator (LCG)
-def pseudo_number_generator(num_steps=5,previous=None, a=2,c=3,m=5):
+def pseudo_number_generator(num_steps=1000,previous=None, a=3209867,c=12493,m=2**80):
     if previous is None:
-        x = 1
+        x = math.pi
     else:
         x = previous
         
@@ -15,8 +16,33 @@ def pseudo_number_generator(num_steps=5,previous=None, a=2,c=3,m=5):
         list.append(n)
     return list
 
-a = pseudo_number_generator()
-print(a)
+def std():
+    result = []
+    num_steps = []
+    for i in range(0,101):
+        num = pseudo_number_generator(previous=i)
+        count = statistics.variance(num)
+        result.append(count)
+        num_steps.append(i)
+    return num_steps,result
+
+x,y = std()
+
+    
+
+
+def plot_me(xas,yas):
+    plt.plot(xas,yas)
+    plt.xlabel('seed')
+    plt.ylabel('variantie')
+    plt.show()
+plot_me(x,y)
+
+
+
+
+
+
 
 """
 pseude_numer_generator(None)  output: 0 
@@ -24,13 +50,4 @@ pseude_numer_generator(0)     output: 3
 pseude_numer_generator(3)     output: 4
 pseude_numer_generator(4)     output: 1 
 pseude_numer_generator(1)     output: 0
-
-x1 = 2 * 1 + 3 (mod 5)
-   = 0
-x2 = 2 * 0 + 3 (mod 5)
-   = 3 
-x3 = 2 * 3 + 3 (mod 5)
-   = 4 
-x4 = 2 * 4 + 3 (mod 5)
-   = 1 
 """
