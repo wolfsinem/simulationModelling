@@ -3,6 +3,9 @@ import math
 import statistics
 import matplotlib.pyplot as plt
 
+def printLine():
+    print('-------------------------------------------------------------------------------------------------------------')
+
 def pseudo_number_generator(num_steps=10,previous=None, a=214013,c=2531011,m=2**32):
     if previous is None:
         x = math.pi
@@ -14,10 +17,18 @@ def pseudo_number_generator(num_steps=10,previous=None, a=214013,c=2531011,m=2**
         n = (a*x+c)%m
         x = n
         lijst.append(n)
-    # print('Er zijn {} random numbers gegenereerd met lineaire congruentie met parameters a = {}, c = {} en m = {}'.format(num_steps,a,c,m))
+    printLine()
+    print('Er zijn {} random numbers gegenereerd met lineaire congruentie met parameters: a = {}, c = {} en m = {}'.format(num_steps,a,c,m))
+    print('De lijst met gegenereerde random numbers: {}'.format(lijst))
+    printLine()
     return lijst
 
-sequence = pseudo_number_generator()
+# hist,bins=np.histogram(sequence)
+# plt.bar(bins[:-1], hist, width=(bins[-1]-bins[-2]), align="edge")
+# plt.xlabel('X(i)')
+# plt.ylabel('Aantal')
+# plt.title("Histogram voor RN")
+# plt.show()
 
 """
 Suppose we generate N values with RNG. Consider the empirical distribution based on these N values.
@@ -37,36 +48,50 @@ Procedure of the KS test:
 5) find Dstd in table for the desired lvl of std and sample size N
     if D > Dstd, recject null hypothesis
 """
-def kolmogorov_smirnov(data,n):
-    a = np.sort(data)
-    max_d_plus = 0
-    max_d_min = 0
+def kolmogorov_smirnov():
+    data = pseudo_number_generator()
+    ri = np.sort(data)
+    n = len(data)
+    
+    d_plus = []
+    d_min = []
+    maxD = 0.0
+
     for i in range(n):
-        dnplus = (i/n) - a[i]
-        if dnplus > max_d_plus:
-            max_d_plus = dnplus
-        dnminus = a[i] - (i-1)/n
-        if dnminus > max_d_min:
-            max_d_min = dnminus
-    dn = max(max_d_plus,max_d_min)
-    return dn
+        dPlus = (i/n) -  ri[i]
+        if dPlus > 0: 
+            d_plus.append(dPlus)
+        
+        dMinus = ri[i] - (i-1)/n
+        if dMinus > 0: 
+            d_min.append(dMinus)
+    
+    print('Berekende D+:{}'.format(d_plus))
+    print('Berekende D-:{}'.format(d_min))
+    printLine()
 
-k = kolmogorov_smirnov(sequence,10)
-print(k)
+    maxP = 0.0 
+    for n in d_plus:
+        if n > maxP:
+            maxP = n
+    print('Max voor D+:{}'.format(maxP))
 
-# 3905047056.625
+    maxM = 0.0
+    for n in d_min:
+        if n > maxM:
+            maxM = n
+    print('Max voor D-:{}'.format(maxM))
 
-# def std():
-#     result = []
-#     steps = []
-#     for i in range(0,101):
-#         num = pseudo_number_generator(previous=i)
-#         count = statistics.variance(num)
-#         result.append(count)
-#         steps.append(i)
-#     return steps,result
+    if maxP > maxM:
+        maxD = maxP
+    else:
+        maxD = maxM
 
-# x,y = std()
+    print('Maximum deviatie: {}'.format(maxD))
+    printLine()
+    return d_plus,d_min,maxP,maxM,maxD
+
+dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
 
 def plot_me(xas,yas):
     plt.scatter(xas,yas)
