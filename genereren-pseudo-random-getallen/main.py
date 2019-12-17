@@ -2,11 +2,12 @@ import numpy as np
 import math
 import statistics
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def printLine():
     print('-------------------------------------------------------------------------------------------------------------')
 
-def pseudo_number_generator(num_steps=10,previous=None, a=214013,c=2531011,m=2**32):
+def pseudo_number_generator(num_steps,previous=None, a=214013,c=2531011,m=2**32):
     if previous is None:
         x = math.pi
     else:
@@ -18,17 +19,19 @@ def pseudo_number_generator(num_steps=10,previous=None, a=214013,c=2531011,m=2**
         x = n
         lijst.append(n)
     printLine()
-    print('Er zijn {} random numbers gegenereerd met lineaire congruentie met parameters: a = {}, c = {} en m = {}'.format(num_steps,a,c,m))
-    print('De lijst met gegenereerde random numbers: {}'.format(lijst))
+    # print('Er zijn {} random numbers gegenereerd met lineaire congruentie met parameters: a = {}, c = {} en m = {}'.format(num_steps,a,c,m))
+    # print('De lijst met gegenereerde random numbers: {}'.format(lijst))
     printLine()
     return lijst
 
-# hist,bins=np.histogram(sequence)
-# plt.bar(bins[:-1], hist, width=(bins[-1]-bins[-2]), align="edge")
-# plt.xlabel('X(i)')
-# plt.ylabel('Aantal')
-# plt.title("Histogram voor RN")
-# plt.show()
+def plot_dist():
+    fig, axes = plt.subplots(1,2)
+    num_steps = [10,10**6]
+    for i,t in enumerate(num_steps):
+        sns.distplot(pseudo_number_generator(t),ax=axes[i % 2])
+        axes.set_title('n = {}'.format())
+    plt.show()
+plot_dist()
 
 """
 Suppose we generate N values with RNG. Consider the empirical distribution based on these N values.
@@ -66,29 +69,30 @@ def kolmogorov_smirnov():
         if dMinus > 0: 
             d_min.append(dMinus)
     
-    print('Berekende D+:{}'.format(d_plus))
-    print('Berekende D-:{}'.format(d_min))
+    # print('Berekende D+:{}'.format(d_plus))
+    # print('Berekende D-:{}'.format(d_min))
     printLine()
 
     maxP = 0.0 
     for n in d_plus:
         if n > maxP:
             maxP = n
-    print('Max voor D+:{}'.format(maxP))
+    # print('Max voor D+:{}'.format(maxP))
 
     maxM = 0.0
     for n in d_min:
         if n > maxM:
             maxM = n
-    print('Max voor D-:{}'.format(maxM))
+    # print('Max voor D-:{}'.format(maxM))
 
     if maxP > maxM:
         maxD = maxP
     else:
         maxD = maxM
 
-    print('Maximum deviatie: {}'.format(maxD))
+    # print('Maximum deviatie: {}'.format(maxD))
     printLine()
+
     return d_plus,d_min,maxP,maxM,maxD
 
 dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
@@ -99,3 +103,10 @@ def plot_me(xas,yas):
     plt.ylabel('variantie')
     plt.show()
 # plot_me(x,y)
+
+# hist,bins=np.histogram(sequence)
+# plt.bar(bins[:-1], hist, width=(bins[-1]-bins[-2]), align="edge")
+# plt.xlabel('X(i)')
+# plt.ylabel('Aantal')
+# plt.title("Histogram voor RN")
+# plt.show()
