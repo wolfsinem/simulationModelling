@@ -28,10 +28,11 @@ def plot_dist():
     fig, axes = plt.subplots(1,2)
     num_steps = [10,10**6]
     for i,t in enumerate(num_steps):
-        sns.distplot(pseudo_number_generator(t),ax=axes[i % 2])
-        axes.set_title('n = {}'.format())
+        sns.distplot(pseudo_number_generator(t),ax=axes[i])
+        axes[i].set_title('n={}'.format(t))
+    fig.suptitle('Distribution pseudo random numbers')
     plt.show()
-plot_dist()
+# plot_dist()
 
 """
 Suppose we generate N values with RNG. Consider the empirical distribution based on these N values.
@@ -52,7 +53,7 @@ Procedure of the KS test:
     if D > Dstd, recject null hypothesis
 """
 def kolmogorov_smirnov():
-    data = pseudo_number_generator()
+    data = pseudo_number_generator(5)
     ri = np.sort(data)
     n = len(data)
     
@@ -92,21 +93,26 @@ def kolmogorov_smirnov():
 
     # print('Maximum deviatie: {}'.format(maxD))
     printLine()
-
     return d_plus,d_min,maxP,maxM,maxD
-
+    
 dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
 
-def plot_me(xas,yas):
-    plt.scatter(xas,yas)
-    plt.xlabel('seed')
-    plt.ylabel('variantie')
-    plt.show()
-# plot_me(x,y)
+"""
+Pi benaderen met de 'Random Number Generator'
+"""
+def plot_cirkle():
+    theta = np.linspace(0, np.pi/2, 100)
+    r = np.sqrt(1.0)
 
-# hist,bins=np.histogram(sequence)
-# plt.bar(bins[:-1], hist, width=(bins[-1]-bins[-2]), align="edge")
-# plt.xlabel('X(i)')
-# plt.ylabel('Aantal')
-# plt.title("Histogram voor RN")
-# plt.show()
+    x1 = r*np.cos(theta)
+    x2 = r*np.sin(theta)
+
+    fig, ax = plt.subplots(1)
+
+    ax.plot(x1, x2)
+    ax.set_aspect(1)
+
+    plt.grid(linestyle='--')
+    plt.show()
+    
+plot_cirkle()
