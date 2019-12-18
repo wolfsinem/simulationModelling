@@ -3,6 +3,8 @@ import math
 import statistics
 import matplotlib.pyplot as plt
 import seaborn as sns
+import cmath 
+from fractions import gcd
 
 def printLine():
     print('-------------------------------------------------------------------------------------------------------------')
@@ -18,10 +20,10 @@ def pseudo_number_generator(num_steps,previous=None, a=214013,c=2531011,m=2**32)
         n = (a*x+c)%m
         x = n
         lijst.append(n)
-    printLine()
+    # printLine()
     # print('Er zijn {} random numbers gegenereerd met lineaire congruentie met parameters: a = {}, c = {} en m = {}'.format(num_steps,a,c,m))
     # print('De lijst met gegenereerde random numbers: {}'.format(lijst))
-    printLine()
+    # printLine()
     return lijst
 
 def plot_dist():
@@ -72,7 +74,7 @@ def kolmogorov_smirnov():
     
     # print('Berekende D+:{}'.format(d_plus))
     # print('Berekende D-:{}'.format(d_min))
-    printLine()
+    # printLine()
 
     maxP = 0.0 
     for n in d_plus:
@@ -92,27 +94,38 @@ def kolmogorov_smirnov():
         maxD = maxM
 
     # print('Maximum deviatie: {}'.format(maxD))
-    printLine()
+    # printLine()
     return d_plus,d_min,maxP,maxM,maxD
-    
+
 dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
 
 """
 Pi benaderen met de 'Random Number Generator'
+'Monte Carlo integration'
 """
-def plot_cirkle():
-    theta = np.linspace(0, np.pi/2, 100)
-    r = np.sqrt(1.0)
+# def pi_benaderen():
+#     in_circle = []
+#     uit_circle = []
+#     for i in range(1000):
+#         x = pseudo_number_generator(1000,previous=0.00001)
+#         y = pseudo_number_generator(1000,previous=0.00002)
+#         if ((0-x[i])*2+(0-y[i])*2)*0.5 <= 1:  #Totall distance from (0,0)
+#             in_circle.append([x[i],y[i]])
+#         else: uit_circle.append([x[i],y[i]])
 
-    x1 = r*np.cos(theta)
-    x2 = r*np.sin(theta)
+#     return in_circle, uit_circle
 
-    fig, ax = plt.subplots(1)
+random_nums = pseudo_number_generator(num_steps=1000000,m=1)
+x = random_nums[:len(random_nums)//2]
+y = random_nums[len(random_nums)//2:]
 
-    ax.plot(x1, x2)
-    ax.set_aspect(1)
+inside = 0
+outside = 0
+for (i,j) in zip(x,y):
+    if math.sqrt(i**2+j**2) <=1:
+        inside+=1
+    else:
+        outside+=1
 
-    plt.grid(linestyle='--')
-    plt.show()
-    
-plot_cirkle()
+pi = (4.*inside)/len(zip(x,y))
+print('Berekende pi met random gegenereerde waarden: {}'.format(pi))
