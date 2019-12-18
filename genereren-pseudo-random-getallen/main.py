@@ -11,7 +11,7 @@ def printLine():
 
 def pseudo_number_generator(num_steps,previous=None, a=214013,c=2531011,m=2**32):
     if previous is None:
-        x = math.pi
+        x = 10**-10
     else:
         x = previous
 
