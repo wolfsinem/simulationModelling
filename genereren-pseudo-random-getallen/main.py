@@ -103,18 +103,6 @@ dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
 Pi benaderen met de 'Random Number Generator'
 'Monte Carlo integration'
 """
-# def pi_benaderen():
-#     in_circle = []
-#     uit_circle = []
-#     for i in range(1000):
-#         x = pseudo_number_generator(1000,previous=0.00001)
-#         y = pseudo_number_generator(1000,previous=0.00002)
-#         if ((0-x[i])*2+(0-y[i])*2)*0.5 <= 1:  #Totall distance from (0,0)
-#             in_circle.append([x[i],y[i]])
-#         else: uit_circle.append([x[i],y[i]])
-
-#     return in_circle, uit_circle
-
 random_nums = pseudo_number_generator(num_steps=1000000,m=1)
 x = random_nums[:len(random_nums)//2]
 y = random_nums[len(random_nums)//2:]
