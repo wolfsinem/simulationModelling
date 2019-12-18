@@ -1,4 +1,4 @@
-from main import pseudo_number_generator, plot_dist
+from main import pseudo_number_generator
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,7 +33,7 @@ def pi_benaderen():
     print('Pi benadering bij random gegenereerde getallen: {}'.format(pi))
     return inside,outside
 
-def plot_cirkle():
+def plot_cirkel():
     x,y = pi_benaderen()
     theta = np.linspace(0, np.pi/2, 100)
     r = np.sqrt(1.0)
@@ -52,4 +52,4 @@ def plot_cirkle():
     plt.grid(linestyle='--')
     plt.show()
 
-plot_cirkle() 
+plot_cirkel() 

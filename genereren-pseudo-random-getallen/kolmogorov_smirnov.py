@@ -2,6 +2,8 @@ import numpy as np
 from main import pseudo_number_generator
 
 """
+http://people.cs.pitt.edu/~lipschultz/cs1538/05_random_numbers.pdf
+
 Suppose we generate N values with RNG. Consider the empirical distribution based on these N values.
 Let Sn(x) be the % of N values that are <= x, for any value x.
 For example: 
@@ -20,7 +22,7 @@ Procedure of the KS test:
     if D > Dstd, recject null hypothesis
 """
 def kolmogorov_smirnov():
-    data = pseudo_number_generator(5)
+    data = pseudo_number_generator(1000000)
     ri = np.sort(data)
     n = len(data)
     
@@ -37,29 +39,23 @@ def kolmogorov_smirnov():
         if dMinus > 0: 
             d_min.append(dMinus)
     
-    # print('Berekende D+:{}'.format(d_plus))
-    # print('Berekende D-:{}'.format(d_min))
-    # printLine()
-
     maxP = 0.0 
     for n in d_plus:
         if n > maxP:
             maxP = n
-    # print('Max voor D+:{}'.format(maxP))
 
     maxM = 0.0
     for n in d_min:
         if n > maxM:
             maxM = n
-    # print('Max voor D-:{}'.format(maxM))
 
     if maxP > maxM:
         maxD = maxP
     else:
         maxD = maxM
 
-    # print('Maximum deviatie: {}'.format(maxD))
-    # printLine()
-    return d_plus,d_min,maxP,maxM,maxD
+    return maxP,maxM,maxD
 
-dP,dM,maxP,maxM,maxD = kolmogorov_smirnov()
+maxP,maxM,maxD = kolmogorov_smirnov()
+print('Max voor D+ = {} & max voor D- = {}'.format(maxP,maxM))
+print('Maximum deviatie is dus: {}'.format(maxD))
