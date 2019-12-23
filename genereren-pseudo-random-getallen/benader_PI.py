@@ -11,7 +11,7 @@ https://measureofdoubt.com/2018/07/22/finding-pi-from-random-numbers/
 
 """
 def pi_benaderen():
-    pseudo_nums = pseudo_number_generator(num_steps=1000,m=1)
+    pseudo_nums = pseudo_number_generator(num_steps=1000000,m=1)
     x = pseudo_nums[:len(pseudo_nums)//2]
     y = pseudo_nums[len(pseudo_nums)//2:]
 
