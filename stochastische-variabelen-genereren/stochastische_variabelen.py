@@ -1,9 +1,11 @@
+import sys
+sys.path.append('/Users/wolfsinem/simulationModelling/genereren-pseudo-random-getallen')
 from main import pseudo_number_generator
+
 import matplotlib.pyplot as plt
 import numpy as np 
 import math
 from statistics import mean, stdev
-
 
 """
 Stochastische variabelen genereren uit een verdeling naar keuze.
@@ -43,5 +45,5 @@ def gauss_distribution(sequence):
 
 x = np.linspace(min(norm),max(norm),1000)
 y = gauss_distribution(norm)
-plt.plot(x,y)
-plt.show()
+# plt.plot(x,y)
+# plt.show()
