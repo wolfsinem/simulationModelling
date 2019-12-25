@@ -32,8 +32,6 @@ x = mu + (std * (wortel(-2 * LnU1 * cos(2*pi*U2))))
 if (U1 == 0):
  x = 0
 """
-norm = pseudo_number_generator(num_steps=1000)
-
 def gauss_distribution(sequence):
     """ Return gaussian distribution, m = mean, s = std"""
     m = mean(sequence)
@@ -43,7 +41,9 @@ def gauss_distribution(sequence):
     f_ = np.exp(-.5 * (x-m)**2. / s**2.) * f
     return f_
 
-x = np.linspace(min(norm),max(norm),1000)
+sequence = pseudo_number_generator(num_steps=1000)
+x = np.linspace(min(sequence),max(sequence),1000)
 y = gauss_distribution(norm)
-# plt.plot(x,y)
-# plt.show()
+
+plt.plot(x,y)
+plt.show()
