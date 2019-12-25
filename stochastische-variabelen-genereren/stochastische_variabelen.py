@@ -2,9 +2,10 @@ import sys
 sys.path.append('/Users/wolfsinem/simulationModelling/genereren-pseudo-random-getallen')
 from main import pseudo_number_generator
 
-import matplotlib.pyplot as plt
-import numpy as np 
 import math
+import numpy as np 
+import seaborn as sns
+import matplotlib.pyplot as plt
 from statistics import mean, stdev
 
 """
@@ -37,8 +38,13 @@ def gauss_distribution(sequence):
     m = mean(sequence)
     s = stdev(sequence)
 
-    f = (2.*math.pi*s**2.) **-.5
-    f_ = np.exp(-.5 * (x-m)**2. / s**2.) * f
+    # f = (2.*math.pi*s**2.) **-.5
+    # f_ = f * np.exp(-.5 * (x-m)**2. / s**2.)
+
+    # f_ = np.exp(-((x-m)**2.) / (2. * s)**2.)
+
+    f = 1/(s * (math.sqrt(2*math.pi)))
+    f_ = f * np.exp(-.5*(((x-m)/s)**2))
     return f_
 
 sequence = pseudo_number_generator(num_steps=1000)
