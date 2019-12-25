@@ -2,6 +2,8 @@ from main import pseudo_number_generator
 import matplotlib.pyplot as plt
 import numpy as np 
 import math
+from statistics import mean, stdev
+
 
 """
 Stochastische variabelen genereren uit een verdeling naar keuze.
@@ -28,20 +30,18 @@ x = mu + (std * (wortel(-2 * LnU1 * cos(2*pi*U2))))
 if (U1 == 0):
  x = 0
 """
-norm_1 = pseudo_number_generator(num_steps=10,m=1)
+norm = pseudo_number_generator(num_steps=1000)
 
-def gauss(m,s):
+def gauss_distribution(sequence):
     """ Return gaussian distribution, m = mean, s = std"""
+    m = mean(sequence)
+    s = stdev(sequence)
 
-    x = pseudo_number_generator(num_steps=10,m=1)
-    h = np.exp(-(x-m)**2. / (2. * s**2.))
+    f = (2.*math.pi*s**2.) **-.5
+    f_ = np.exp(-.5 * (x-m)**2. / s**2.) * f
+    return f_
 
-    return h / h.sum()
-
-
-# mean, sigma = 1, 0.2 
-# gaussian = np.random.normal(mean,sigma,size=1000)
-
-# bins = 30
-# plt.hist(gaussian, bins)
-# plt.show()
+x = np.linspace(min(norm),max(norm),1000)
+y = gauss_distribution(norm)
+plt.plot(x,y)
+plt.show()
