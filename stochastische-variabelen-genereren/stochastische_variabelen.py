@@ -43,7 +43,7 @@ def gauss_distribution(sequence):
 
 sequence = pseudo_number_generator(num_steps=1000)
 x = np.linspace(min(sequence),max(sequence),1000)
-y = gauss_distribution(norm)
+y = gauss_distribution(sequence)
 
 plt.plot(x,y)
 plt.show()
