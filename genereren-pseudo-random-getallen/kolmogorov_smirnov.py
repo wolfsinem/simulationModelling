@@ -22,7 +22,7 @@ Procedure of the KS test:
     if D > Dstd, recject null hypothesis
 """
 def kolmogorov_smirnov():
-    data = pseudo_number_generator(1000000)
+    data = pseudo_number_generator(num_steps=5,a=100,c=101427,m=2**16)
     ri = np.sort(data)
     n = len(data)
     
@@ -48,14 +48,22 @@ def kolmogorov_smirnov():
     for n in d_min:
         if n > maxM:
             maxM = n
+    print('Max voor D+ = {} & max voor D- = {}'.format(maxP,maxM))
 
     if maxP > maxM:
         maxD = maxP
     else:
         maxD = maxM
+    print('Maximum deviatie is dus: {}'.format(maxD))
 
-    return maxP,maxM,maxD
+    alphaValue = 0.05    
+    if maxD > alphaValue:
+        print('Maximum deviatie: {}, is groter dan alpha {}'.format(maxD,alphaValue))
+        print('We verwerpen H0 en conluderen dat de distributie niet uniform is')
+    else:
+        print('Maximum deviatie: {}, is kleiner dan alpha: {}'.format(maxD,alphaValue))
+        print('We verwerpen H0 niet en daarmee concluderen we dat de distributie uniform is')
 
-maxP,maxM,maxD = kolmogorov_smirnov()
-print('Max voor D+ = {} & max voor D- = {}'.format(maxP,maxM))
-print('Maximum deviatie is dus: {}'.format(maxD))
+    return maxP,maxM,maxD,alphaValue
+
+maxP,maxM,maxD,alphaValue = kolmogorov_smirnov()
