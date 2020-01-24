@@ -25,31 +25,32 @@ U1 = [0,1] random numbers between 0 en 1
 U2 = [0,1] random numbers between 0 en 1
 
 x = wortel(-2 * LnU1 * cos(2*pi*U2))
-f(x,a=1,mu=0,std=1) = a exp[-((x-mu)^2) / (2 * std)^2] = ((1/wortel(2*pi))* exp(-(x^2) / 2))
-
-normal --> gaussian
-x = mu + (std * (wortel(-2 * LnU1 * cos(2*pi*U2))))
-
-if (U1 == 0):
- x = 0
+f(x,a=1,mu=0,std=1) = a exp[-((x-mu)^2) / (2 * std)^2] = 
+       
+((1/wortel(2*pi))* exp(-(x^2) / 2))
 """
+
 def gauss_distribution(sequence):
     """ Return gaussian distribution, m = mean, s = std"""
     m = mean(sequence)
     s = stdev(sequence)
 
-    # f = (2.*math.pi*s**2.) **-.5
-    # f_ = f * np.exp(-.5 * (x-m)**2. / s**2.)
+    lijst = [] 
 
-    # f_ = np.exp(-((x-m)**2.) / (2. * s)**2.)
-
-    f = 1/(s * (math.sqrt(2*math.pi)))
-    f_ = f * np.exp(-.5*(((x-m)/s)**2))
-    return f_
+    for x in sequence:
+        f  = 1/(s * (math.sqrt(2*math.pi)))
+        f_ = f * np.exp(-.5*(((x-m)/s)**2))
+        lijst.append(f_)
+    
+    return lijst
 
 sequence = pseudo_number_generator(num_steps=1000)
+lijst = gauss_distribution(sequence)
+
 x = np.linspace(min(sequence),max(sequence),1000)
 y = gauss_distribution(sequence)
 
-plt.plot(x,y)
+# plt.plot(x,y)
+# plt.show()
+plt.hist(lijst)
 plt.show()
