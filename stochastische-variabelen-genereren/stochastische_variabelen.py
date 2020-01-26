@@ -1,16 +1,14 @@
 import sys
 sys.path.append('/Users/wolfsinem/simulationModelling/genereren-pseudo-random-getallen')
 from main import pseudo_number_generator
-
-import math
-import numpy as np 
+from numpy import sqrt, log, sin, cos, pi as np # use numpy for scientific computations with matrices, arrays or large datasets
 import seaborn as sns
 import matplotlib.pyplot as plt
-from statistics import mean, stdev
 
 """
-Stochastische variabelen genereren uit een verdeling naar keuze.
+Stochastische variabelen genereren uit een verdeling naar keuze. 
 https://people.engr.ncsu.edu/hp/files/simulation.pdf
+https://glowingpython.blogspot.com/2013/01/box-muller-transformation.html 
 
 Random numbers following a specific distribution are called
 stochastic variates.
@@ -24,33 +22,29 @@ Box-Muller Transform
 U1 = [0,1] random numbers between 0 en 1
 U2 = [0,1] random numbers between 0 en 1
 
-x = wortel(-2 * LnU1 * cos(2*pi*U2))
-f(x,a=1,mu=0,std=1) = a exp[-((x-mu)^2) / (2 * std)^2] = 
-       
-((1/wortel(2*pi))* exp(-(x^2) / 2))
+z1 = (wortel(-2 * lin(u1))) * cos (2*pi*u2) 
+z2 = (wortel(-2 * lin(u1))) * sin (2*pi*u2)
 """
 
-def gauss_distribution(sequence):
-    """ Return gaussian distribution, m = mean, s = std"""
-    m = mean(sequence)
-    s = stdev(sequence)
+def gauss_distribution():
+    """Transformation function using Gaussian Distribution"""
+    # use the pseudo random number generator again to generate x values
+    u1_ = pseudo_number_generator(num_steps=10000) 
+    u2_ = pseudo_number_generator(num_steps=10000) 
 
-    lijst = [] 
+    z1 = math.sqrt(-2 * math.log(u1) for u1 in u1_) * math.cos(2 * math.pi * (u2)for u2 in u2_)
+    z2 = math.sqrt(-2 * math.log(u1) for u1 in u1_) * math.sin(2 * math.pi * (u2)for u2 in u2_)
+    return z1,z2
 
-    for x in sequence:
-        f  = 1/(s * (math.sqrt(2*math.pi)))
-        f_ = f * np.exp(-.5*(((x-m)/s)**2))
-        lijst.append(f_)
-    
-    return lijst
+# new generated values with the gauss distribution function
+z1,z2 = gauss_distribution()
 
-sequence = pseudo_number_generator(num_steps=1000)
-lijst = gauss_distribution(sequence)
+# plot data and see if its normally distributed
+plt.subplot(221)
+plt.hist(z1, bins=20)
+plt.title('')
 
-x = np.linspace(min(sequence),max(sequence),1000)
-y = gauss_distribution(sequence)
-
-# plt.plot(x,y)
+plt.subplot(222)
+plt.hist(z2, bins=20)
+plt.title('')
 # plt.show()
-plt.hist(lijst)
-plt.show()
