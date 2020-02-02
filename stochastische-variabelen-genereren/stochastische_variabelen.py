@@ -1,8 +1,7 @@
-import sys
-sys.path.append('/Users/wolfsinem/simulationModelling/genereren-pseudo-random-getallen')
-from main import pseudo_number_generator
-from numpy import sqrt, log, sin, cos, pi as np # use numpy for scientific computations with matrices, arrays or large datasets
-import seaborn as sns
+# import sys
+# sys.path.append('/Users/wolfsinem/simulationModelling/genereren-pseudo-random-getallen')
+# from main import pseudo_number_generator
+import numpy as np # use numpy for scientific computations with matrices, arrays or large datasets
 import matplotlib.pyplot as plt
 
 """
@@ -25,6 +24,13 @@ U2 = [0,1] random numbers between 0 en 1
 z1 = (wortel(-2 * lin(u1))) * cos (2*pi*u2) 
 z2 = (wortel(-2 * lin(u1))) * sin (2*pi*u2)
 """
+def pseudo_number_generator(num_steps,previous=10**-10,a=214013,c=2531011,m=2**32):
+    x = previous
+    lijst = []
+    for i in range(num_steps):
+        x = (a*x+c)%m
+        lijst.append(x)
+    return [i/m for i in lijst]
 
 def gauss_distribution():
     """Transformation function using Gaussian Distribution"""
@@ -32,19 +38,25 @@ def gauss_distribution():
     u1_ = pseudo_number_generator(num_steps=10000) 
     u2_ = pseudo_number_generator(num_steps=10000) 
 
-    z1 = math.sqrt(-2 * math.log(u1) for u1 in u1_) * math.cos(2 * math.pi * (u2)for u2 in u2_)
-    z2 = math.sqrt(-2 * math.log(u1) for u1 in u1_) * math.sin(2 * math.pi * (u2)for u2 in u2_)
+    z1 = np.sqrt(-2 * np.log(u1) for u1 in u1_) * np.cos(2 * np.pi * (u2)for u2 in u2_)
+    z2 = np.sqrt(-2 * np.log(u1) for u1 in u1_) * np.sin(2 * np.pi * (u2)for u2 in u2_)
     return z1,z2
 
 # new generated values with the gauss distribution function
 z1,z2 = gauss_distribution()
 
-# plot data and see if its normally distributed
-plt.subplot(221)
-plt.hist(z1, bins=20)
-plt.title('')
 
-plt.subplot(222)
-plt.hist(z2, bins=20)
-plt.title('')
+
+
+
+
+
+# plot data and see if its normally distributed
+# plt.subplot(221)
+# plt.hist(z1, bins=20)
+# plt.title('')
+
+# plt.subplot(222)
+# plt.hist(z2, bins=20)
+# plt.title('')
 # plt.show()
