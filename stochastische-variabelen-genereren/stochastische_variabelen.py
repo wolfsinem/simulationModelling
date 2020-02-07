@@ -44,19 +44,3 @@ def gauss_distribution():
 
 # new generated values with the gauss distribution function
 z1,z2 = gauss_distribution()
-
-
-
-
-
-
-
-# plot data and see if its normally distributed
-# plt.subplot(221)
-# plt.hist(z1, bins=20)
-# plt.title('')
-
-# plt.subplot(222)
-# plt.hist(z2, bins=20)
-# plt.title('')
-# plt.show()
